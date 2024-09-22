@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 17:10:09 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/09/22 21:57:46 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/09/22 22:01:40 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int					init_forks(t_data *data);
 int					init_mutexes(t_data *data);
 
 // utils
-void				print_error(void);
+int				print_error(void);
 int					ft_atoi(const char *str);
 
 #endif
