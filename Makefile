@@ -4,8 +4,10 @@ INC_DIR = include
 
 SRC_DIR = srcs
 SRCFILES = main.c \
+			error.c \
+			ft_atoi.c 
 
-CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR)
+CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) -fsanitize=thread
 
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRCFILES))
