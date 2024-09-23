@@ -5,7 +5,8 @@ INC_DIR = include
 SRC_DIR = srcs
 SRCFILES = main.c \
 			error.c \
-			ft_atoi.c 
+			init.c \
+			ft_utils.c 
 
 CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) -fsanitize=thread
 
