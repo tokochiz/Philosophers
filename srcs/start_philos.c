@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:59:58 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/09/23 19:50:18 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:36:39 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,50 @@
 // e. 睡眠: usleepを使用してtime_to_sleepミリ秒間の睡眠をシミュレートします。
 // f. ループ: 哲学者が必要な回数だけ食事をするか、死亡するまでこのサイクルを繰り返します。
 
+static int	calc_start_meal_time(t_data *data)
+{
+	int	p;
+	int	i;
+	int	e;
+	int	t;
+
+	p = data->number_of_philosophers;
+	i = data->philo->id;
+	e = data->time_to_eat;
+	t = 0;
+	if (p == 1)
+		return (data->start_time);
+	if (p % 2 == 0)
+	{
+		if (i % 2 == 0)
+			t = e;
+		else
+			t = 0;
+	}
+	else
+	{
+		if (i % 2 == 0)
+			t = ((2 * p - i) * e) / (p - 1);
+		else
+			t = ((p - i) * e) / (p - 1);
+	}
+	return (data->start_time + t);
+}
+
 static void	*action(void *arg)
 {
-	// スタートする時間を調整
-	calc_start_action(data->)
+	t_philo	*philo;
+	int		first_meal_time;
+
+	philo = arg;
+	// スタートする時間を調整を計算する
+	first_meal_time = calc_start_meal_time(philo);
+	
+	// 指定された時刻までに正確に待機をする関数
+	
 	while (1)
 	{
-		// 繰り返す動作
+		// 繰り返す動作　死ぬまで繰り返す
 	}
 	return (NULL);
 }
