@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 16:52:47 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/09/23 19:46:32 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:40:05 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ int	main(int argc, char **argv)
 	// 引数のパース、初期化
 	if (parse_arguments(argc, argv, &data))
 		print_error();
-	init_data(&data)
+	init_data(&data);
 		
 	// todo : 哲学者のスレッドを作成、哲学者の動作を始める
 	// 失敗したらすべてのスレッドをミューテックスを開放しないといけない
 	if (start_philos(&data, &data.philo))
 	{
-		release_data(&data);
+		//release_data(&data);
 		print_error();
 	}
 
 	// todo : 哲学者が死んだ場合、食べることに失敗した場合
-	death_data(&data);
+	//death_data(&data);
 }

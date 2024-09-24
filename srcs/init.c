@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:15:26 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/09/23 19:46:45 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:37:58 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	init_mutexes(t_data *data)
 	}
 	return (0);
 }
+
 void	init_data(t_data *data)
 {
 	if (init_philos(&data))
