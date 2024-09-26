@@ -6,11 +6,14 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:59:58 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/09/23 20:36:39 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/09/26 22:12:22 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+// デバッグ用のマクロ
+#define DEBUG_PRINT(fmt, ...) fprintf(stderr, "[DEBUG] " fmt "\n", ##__VA_ARGS__)
 
 // todo :　デットロックの防止
 // todo : 初期スリープ時間の計算　偶数、奇数の時
@@ -52,21 +55,19 @@ static int	calc_start_meal_time(t_data *data)
 	return (data->start_time + t);
 }
 
-static void	*action(void *arg)
+static void	*action(t_data *data)
 {
-	t_philo	*philo;
 	int		first_meal_time;
-
-	philo = arg;
+    
 	// スタートする時間を調整を計算する
-	first_meal_time = calc_start_meal_time(philo);
-	
+	first_meal_time = calc_start_meal_time(data);
+	DEBUG_PRINT("***first meal time %d ", first_meal_time);
 	// 指定された時刻までに正確に待機をする関数
 	
-	while (1)
-	{
-		// 繰り返す動作　死ぬまで繰り返す
-	}
+	// while (1)
+	// {
+	// 	// 繰り返す動作　死ぬまで繰り返す
+	// }
 	return (NULL);
 }
 
@@ -75,23 +76,29 @@ int	start_philos(t_data *data, t_philo *philo)
 	int	i;
 
 	i = 0;
+	printf("***start test1\n");
+	// 遅延をあとで調整　遅延を入れて、スレッドの作成で同じ開始時間を持つようにする
 	data->start_time = get_time() + 1000;
+	DEBUG_PRINT("***Starting to create threads. Number of philosophers: %d", data->number_of_philosophers);
 	while (i < data->number_of_philosophers)
 	{
 		// todo : 哲学者文のスレッドを作成する
 		if (pthread_create(&philo[i].thread, NULL, (void *)action, &philo[i]))
 		{
-			// error
+			DEBUG_PRINT("***Failed to create thread for philosopher %d", i + 1);
+            // error
 			return (1);
 		}
-		i++;
+		DEBUG_PRINT("***Successfully created thread for philosopher %d", i + 1);
+        i++;
 	}
 	// todo : 哲学者のモニタリング　死ぬか、シミュレートが終了するまでの間監視する
-	monitor_philos(&data);
-	i = 0;
-	while (i < data->number_of_philosophers)
-	{
-		pthread_join(&philo[i].thread, NULL);
-		i++;
-	}
+	// monitor_philos(&data);
+	// i = 0;
+	// while (i < data->number_of_philosophers)
+	// {
+	// 	pthread_join(&philo[i].thread, NULL);
+	// 	i++;
+	// }
+	return 0;
 }

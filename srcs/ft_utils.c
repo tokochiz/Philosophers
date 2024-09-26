@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 21:02:25 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/09/23 14:53:47 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/09/26 22:07:58 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,35 @@ int	ft_isspaces(int c)
 	return (0);
 }
 
+static const char	*move_to_digit(const char *str, int *sign)
+{
+	*sign = 1;
+	while (ft_isspaces(*str))
+		str++;
+	if (*str == '-')
+		*sign = -1;
+	if (*str == '-' || *str == '+')
+		str++;
+	return (str);
+}
+
 int	ft_atoi(const char *str)
 {
 	long	result;
 	int		sign;
 
 	result = 0;
-	sign = 0;
-	while (ft_isspaces(*str))
-		str++;
-	while (*str == '-')
-		sign = -1;
-	while (*str == '-' || *str == '+')
-	{
-		str++;
-	}
+	sign = 1;
+	str = move_to_digit(str, &sign);
 	while (*str != '\0')
 	{
-		result = result * 10 + (*str - '0');
-		if (result > INT_MAX)
+		if (result > (INT_MAX - (*str - '0')) / 10)
 		{
 			if (sign == 1)
 				return (INT_MAX);
 			return (INT_MIN);
 		}
+		result = result * 10 + (*str - '0');
 		str++;
 	}
 	return (int)(sign * result);
