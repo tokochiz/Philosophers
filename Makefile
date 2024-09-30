@@ -8,7 +8,8 @@ SRCFILES = main.c \
 			init.c \
 			ft_utils.c 
 
-CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) 
+# -fsanitize=thread
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRCFILES))
 OP_SRCS = $(addprefix $(OP_DIR)/, $(OPFILES))
