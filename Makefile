@@ -6,9 +6,12 @@ SRC_DIR = srcs
 SRCFILES = main.c \
 			error.c \
 			init.c \
-			ft_utils.c 
+			ft_utils.c \
+			start_philos.c \
+			time.c
 
-CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) 
+#-g -fsanitize=thread
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRCFILES))
 OP_SRCS = $(addprefix $(OP_DIR)/, $(OPFILES))
@@ -20,7 +23,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $(NAME) $(OBJS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ 
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)

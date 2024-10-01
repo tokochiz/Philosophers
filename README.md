@@ -41,6 +41,8 @@
 • プログラムにデータ競合はない。
 
 
-
+rm -rf ~/.cache/google-chrome/Default/Cache/*
+rm -rf ~/.cache/mesa_shader_cache/*
+rm -rf ~/.cache/*
 
 

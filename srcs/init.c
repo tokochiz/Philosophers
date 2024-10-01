@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:15:26 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/09/26 22:09:51 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:46:09 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	init_mutexes(t_data *data)
 {
 	int	i;
-		printf("init test4\n");
+
 	if (pthread_mutex_init(&data->death_mutex, NULL) != 0)
 		return (1);
 	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
@@ -35,7 +35,8 @@ int	init_mutexes(t_data *data)
 int	init_forks(t_data *data)
 {
 	int	i;
-		printf("init test3\n");
+
+	printf("init test3\n");
 	data->fork = (t_fork *)malloc(sizeof(t_fork)
 			* data->number_of_philosophers);
 	if (data->fork == NULL)
@@ -52,12 +53,14 @@ int	init_forks(t_data *data)
 int	init_philos(t_data *data)
 {
 	int	i;
-		printf("init test2\n");
-	data->philo = (t_philo *)malloc(sizeof(t_philo)* data->number_of_philosophers);
+
+	printf("init test2\n");
+	data->philo = (t_philo *)malloc(sizeof(t_philo)
+			* data->number_of_philosophers);
 	if (data->philo == NULL)
 		return (1);
-	i = 1;
-	while (i <= data->number_of_philosophers)
+	i = 0;
+	while (i < data->number_of_philosophers)
 	{
 		data->philo[i].id = i + 1;
 		data->philo[i].state = THINKING;
@@ -71,7 +74,7 @@ int	init_philos(t_data *data)
 
 void	init_data(t_data *data)
 {
-		printf("init test1\n");
+	printf("init test1\n");
 	data->error = 0; // エラーフラグを初期化
 	if (init_philos(data))
 	{

@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 17:10:09 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/09/23 19:47:43 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:40:25 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,16 @@ typedef struct s_data
 	pthread_mutex_t print_mutex; //出力を制御するミューテクス
 	t_philo *philo;              //哲学者の配列
 	t_fork *fork;                //フォークの配列
+	int				error;
 }					t_data;
-
 
 // main.c
 int					parse_arguments(int argc, char **argv, t_data *data);
 
 // init.c
-
+int					init_mutexes(t_data *data);
 int					init_philos(t_data *data);
 int					init_forks(t_data *data);
-int					init_mutexes(t_data *data);
 void				init_data(t_data *data);
 
 // utils
@@ -77,6 +76,6 @@ int					ft_atoi(const char *str);
 long long			get_time(void);
 
 // start_philo.c
-int					start_philos(t_data *data, t_philo *philo);
+int					start_philos(t_data *data);
 
 #endif
