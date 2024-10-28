@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:59:58 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/10/01 20:00:37 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/10/28 21:01:39 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // e. 睡眠: usleepを使用してtime_to_sleepミリ秒間の睡眠をシミュレートします。
 // f. ループ: 哲学者が必要な回数だけ食事をするか、死亡するまでこのサイクルを繰り返します。
 
-static int	calc_start_meal_time(t_philo* philo)
+static long long	calc_start_meal_time(t_philo* philo)
 {
 	int	p;
 	int	i;
@@ -67,11 +67,11 @@ static int	calc_start_meal_time(t_philo* philo)
 static void	*action(void *arg)
 {
 	t_philo *philo = (t_philo *)arg;
-	int		first_meal_time;
+	long long	first_meal_time;
  
 	// スタートする時間を調整を計算する
 	first_meal_time = calc_start_meal_time(philo);
-	DEBUG_PRINT("***Philosopher %d first meal time %d ", philo->id, first_meal_time);
+	DEBUG_PRINT("***Philosopher %d first meal time %lld ", philo->id, first_meal_time);
 	// 指定された時刻までに正確に待機をする関数
 	
 	// while (1)
@@ -96,6 +96,7 @@ int	start_philos(t_data *data)
 		data->philo[i].data = data;
 		data->philo[i].eat_count = 0;
 		data->philo[i].last_meal_time = data->start_time;
+		
 		// todo : 哲学者文のスレッドを作成する
 		if (pthread_create(&data->philo[i].thread, NULL, action, &data->philo[i]))
 		{

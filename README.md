@@ -45,4 +45,6 @@ rm -rf ~/.cache/google-chrome/Default/Cache/*
 rm -rf ~/.cache/mesa_shader_cache/*
 rm -rf ~/.cache/*
 
+ex)
+ ./philo 3 410 200 200
 

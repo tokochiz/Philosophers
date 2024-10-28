@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 16:52:47 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/09/26 22:11:41 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/10/28 20:51:49 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	parse_arguments(int argc, char **argv, t_data *data)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
-	printf("***argv debag %d %d %d %d\n", data->number_of_philosophers,
-		data->time_to_die, data->time_to_eat, data->time_to_sleep);
+	// printf("***argv debag %d %d %d %d\n", data->number_of_philosophers,
+	// 	data->time_to_die, data->time_to_eat, data->time_to_sleep);
 	if (argc == 6)
 		data->num_must_eat = atoi(argv[5]);
 	else
@@ -60,7 +60,7 @@ int	main(int argc, char **argv)
 	printf("test2\n");
 	//	todo : 哲学者のスレッドを作成、哲学者の動作を始める
 	//	失敗したらすべてのスレッドをミューテックスを開放しないといけない
-	if (start_philos(&data, data.philo))
+	if (start_philos(&data))
 	{
 		// release_data(&data);
 		print_error();

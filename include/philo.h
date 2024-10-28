@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 17:10:09 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/10/01 19:40:25 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/10/28 20:45:55 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ typedef struct s_fork
 typedef struct s_data
 {
 	int				number_of_philosophers;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				num_must_eat;
+	long long				time_to_die;
+	long long				time_to_eat;
+	long long				time_to_sleep;
+	long long				num_must_eat;
 	long long		start_time;
 	int someone_died;            // 誰かが死んだかどうか
 	pthread_mutex_t death_mutex; //死んだかどうかの状態を更新するミューテックス
