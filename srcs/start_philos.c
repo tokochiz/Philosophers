@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:59:58 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/10/28 21:01:39 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:55:22 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static long long	calc_start_meal_time(t_philo* philo)
 	p = philo->data->number_of_philosophers;
 	i = philo->id;
 	e = philo->data->time_to_eat;
-	printf("e %d %d %d\n", p, i, e);
 	t = 0;
 	if (p == 1)
 		return (philo->data->start_time);
@@ -43,22 +42,22 @@ static long long	calc_start_meal_time(t_philo* philo)
 	{
 		if (i % 2 == 0){
 			t = e;
-			printf("tt1-0 %d\n", t);
+			printf("tt1-0 %d, n:%d\n", t, i);
 			}
 		else{
 			t = 0;
-		printf("tt1-1 %d\n", t);
+		printf("tt1-1 %d, n:%d\n", t, i);
 		}
 	}
 	else
 	{
 		if (i % 2 == 0){
 			t = ((2 * p - i) * e) / (p - 1);
-		printf("tt2-0 %d\n", t);
+		printf("tt2-0 %d, n:%d\n", t, i);
 		}
 		else{
 			t = ((p - i) * e) / (p - 1);
-			printf("tt2-1 %d\n", t);
+			printf("tt2-1 %d, n:%d\n", t, i);
 		}
 	}
 	return (philo->data->start_time + t);
@@ -90,6 +89,7 @@ int	start_philos(t_data *data)
 	// 遅延をあとで調整　遅延を入れて、スレッドの作成で同じ開始時間を持つようにする
 	data->start_time = get_time() + 1000;
 	DEBUG_PRINT("***Starting to create threads. Number of philosophers: %d", data->number_of_philosophers);
+		DEBUG_PRINT("***Starting time: %lld", data->start_time);
 	while (i < data->number_of_philosophers)
 	{
 		data->philo[i].id = i + 1;
