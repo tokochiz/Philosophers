@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:59:58 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/10/29 20:55:22 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/16 22:04:17 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,28 @@ static void	*action(void *arg)
 	first_meal_time = calc_start_meal_time(philo);
 	DEBUG_PRINT("***Philosopher %d first meal time %lld ", philo->id, first_meal_time);
 	// 指定された時刻までに正確に待機をする関数
-	
-	// while (1)
-	// {
-	// 	// 繰り返す動作　死ぬまで繰り返す
-	// }
+	// 繰り返す動作　死ぬまで繰り返す
+	while (1)
+	{
+		// 死亡確認
+		if(check_death(philo))
+			break;
+			
+		// 思考状態
+		check_thinking();
+		
+		// フォーク取る
+
+		//食事
+		// フォーク置く
+		
+		// 必要な食事回数に達したかちぇっくする
+
+		
+		// 睡眠
+		print_status(philo, "is sleeping");
+		preci		
+	}
 	return (NULL);
 }
 
