@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:59:58 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/11/16 22:04:17 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/17 20:33:14 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // e. 睡眠: usleepを使用してtime_to_sleepミリ秒間の睡眠をシミュレートします。
 // f. ループ: 哲学者が必要な回数だけ食事をするか、死亡するまでこのサイクルを繰り返します。
 
-static long long	calc_start_meal_time(t_philo* philo)
+static long long	calc_start_meal_time(t_philo *philo)
 {
 	int	p;
 	int	i;
@@ -40,24 +40,28 @@ static long long	calc_start_meal_time(t_philo* philo)
 		return (philo->data->start_time);
 	if (p % 2 == 0)
 	{
-		if (i % 2 == 0){
+		if (i % 2 == 0)
+		{
 			t = e;
-			printf("tt1-0 %d, n:%d\n", t, i);
-			}
-		else{
+			// printf("tt1-0 %d, n:%d\n", t, i);
+		}
+		else
+		{
 			t = 0;
-		printf("tt1-1 %d, n:%d\n", t, i);
+			// printf("tt1-1 %d, n:%d\n", t, i);
 		}
 	}
 	else
 	{
-		if (i % 2 == 0){
+		if (i % 2 == 0)
+		{
 			t = ((2 * p - i) * e) / (p - 1);
-		printf("tt2-0 %d, n:%d\n", t, i);
+			// printf("tt2-0 %d, n:%d\n", t, i);
 		}
-		else{
+		else
+		{
 			t = ((p - i) * e) / (p - 1);
-			printf("tt2-1 %d, n:%d\n", t, i);
+			// rintf("tt2-1 %d, n:%d\n", t, i);
 		}
 	}
 	return (philo->data->start_time + t);
@@ -65,34 +69,45 @@ static long long	calc_start_meal_time(t_philo* philo)
 
 static void	*action(void *arg)
 {
-	t_philo *philo = (t_philo *)arg;
+	t_philo		*philo;
 	long long	first_meal_time;
- 
+
+	philo = (t_philo *)arg;
 	// スタートする時間を調整を計算する
 	first_meal_time = calc_start_meal_time(philo);
+	precise_sleep_time(first_meal_time);
 	DEBUG_PRINT("***Philosopher %d first meal time %lld ", philo->id, first_meal_time);
 	// 指定された時刻までに正確に待機をする関数
 	// 繰り返す動作　死ぬまで繰り返す
 	while (1)
 	{
 		// 死亡確認
-		if(check_death(philo))
-			break;
+		if (check_death(philo))
+			break ;
 			
-		// 思考状態
-		check_thinking();
+		// // 思考状態
+		// // take_think(philo);
+		// think_time = calc_think_time(philo);
+		// print_status(philo, "is thinking");
+		// precise_sleep_time(think_time);
 		
-		// フォーク取る
+		// // フォーク取る
+		// if (!take_forks(philo))
+		// 	break ;
+			
+		// //食事
+		// if (!eat(philo))
+		// {
+		// 	put_forks(philo);
+		// 	break ;
+		// }
 
-		//食事
-		// フォーク置く
+		// // フォーク置く
+		// put_forks(philo);
 		
-		// 必要な食事回数に達したかちぇっくする
-
-		
-		// 睡眠
-		print_status(philo, "is sleeping");
-		preci		
+		// // 睡眠
+		// print_status(philo, "is sleeping");
+		// precise_sleep_time(philo->data->time_to_sleep);
 	}
 	return (NULL);
 }
@@ -105,32 +120,35 @@ int	start_philos(t_data *data)
 	printf("***start test1\n");
 	// 遅延をあとで調整　遅延を入れて、スレッドの作成で同じ開始時間を持つようにする
 	data->start_time = get_time() + 1000;
-	DEBUG_PRINT("***Starting to create threads. Number of philosophers: %d", data->number_of_philosophers);
-		DEBUG_PRINT("***Starting time: %lld", data->start_time);
+	DEBUG_PRINT("***Starting to create threads. Number of philosophers: %d",
+		data->number_of_philosophers);
+	DEBUG_PRINT("***Starting time: %lld", data->start_time);
 	while (i < data->number_of_philosophers)
 	{
 		data->philo[i].id = i + 1;
 		data->philo[i].data = data;
 		data->philo[i].eat_count = 0;
 		data->philo[i].last_meal_time = data->start_time;
-		
 		// todo : 哲学者文のスレッドを作成する
-		if (pthread_create(&data->philo[i].thread, NULL, action, &data->philo[i]))
+		if (pthread_create(&data->philo[i].thread, NULL, action,
+				&data->philo[i]))
 		{
 			DEBUG_PRINT("***Failed to create thread for philosopher %d", i);
-            // error
+			// error
 			return (1);
 		}
 		DEBUG_PRINT("***Successfully created thread for philosopher %d", i);
-        i++;
+		i++;
 	}
 	// todo : 哲学者のモニタリング　死ぬか、シミュレートが終了するまでの間監視する
-	// monitor_philos(&data);
+	// if(start_monitoring(data))
+	// 	return 1;
+		
 	i = 0;
 	while (i < data->number_of_philosophers)
 	{
 		pthread_join(data->philo[i].thread, NULL);
 		i++;
 	}
-	return 0;
+	return (0);
 }
