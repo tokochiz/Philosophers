@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:18:42 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/10/28 20:50:27 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/17 20:33:34 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,17 @@ long long	get_time(void)
 	// 秒 (tv_sec) とマイクロ秒 (tv_usec) 　
 	// 秒をミリ秒、マイクロ秒をミリ秒に変換してその合計を返す
 	return ((long long)(time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
+void	precise_sleep_time(long long duration_ms)
+{
+	long long start_time;
+	long long end_time;
+
+	start_time = get_time();
+	end_time = start_time + duration_ms;
+
+	while (get_time() < end_time)
+	{
+		usleep(100);
+	}
 }
