@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 19:15:01 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/11/17 19:17:50 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/17 21:16:05 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,18 @@ int eat(t_philo *philo)
     return 1;
 }
 
+// 食事回数チェック　　
+あとでちゃんと理解すること＠＠＠＠＠＠＠＠＠＠＠＠＠＠
+static int all_philosophers_ate_enough(t_data *data)
+{
+    int i;
+    
+    i = 0;
+    while (i < data->number_of_philosophers)
+    {
+        if (data->philo[i].eat_count < data->must_eat)
+            return (0);
+        i++;
+    }
+    return (1);
+}

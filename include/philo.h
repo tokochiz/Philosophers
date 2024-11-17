@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 17:10:09 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/10/28 20:45:55 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/17 20:29:57 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_philo
 	int				eat_count;
 	long long		last_meal_time;
 	pthread_t		thread;
+	pthread_mutex_t last_meal_mutex; //最後の食事時間保護用
 	struct s_data	*data;
 }					t_philo;
 
@@ -46,16 +47,18 @@ typedef struct s_fork
 typedef struct s_data
 {
 	int				number_of_philosophers;
-	long long				time_to_die;
-	long long				time_to_eat;
-	long long				time_to_sleep;
-	long long				num_must_eat;
+	long long		time_to_die;
+	long long		time_to_eat;
+	long long		time_to_sleep;
+	long long		num_must_eat;
 	long long		start_time;
-	int someone_died;            // 誰かが死んだかどうか
-	pthread_mutex_t death_mutex; //死んだかどうかの状態を更新するミューテックス
-	pthread_mutex_t print_mutex; //出力を制御するミューテクス
-	t_philo *philo;              //哲学者の配列
-	t_fork *fork;                //フォークの配列
+	int someone_died;               // 誰かが死んだかどうか
+	pthread_mutex_t death_mutex;    //死んだかどうかの状態を更新するミューテックス
+	pthread_mutex_t print_mutex;    //出力を制御するミューテクス
+	pthread_mutex_t simu_end_mutex; // 終了フラグ保護用
+	int				simu_end;
+	t_philo *philo; //哲学者の配列
+	t_fork *fork;   //フォークの配列
 	int				error;
 }					t_data;
 
@@ -77,5 +80,12 @@ long long			get_time(void);
 
 // start_philo.c
 int					start_philos(t_data *data);
+void				precise_sleep_time(long long duration_ms);
+
+// eat
+int					eat(t_philo *philo);
+
+// death
+int	check_death(t_philo *philo);
 
 #endif

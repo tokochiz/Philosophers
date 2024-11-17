@@ -8,7 +8,9 @@ SRCFILES = main.c \
 			init.c \
 			ft_utils.c \
 			start_philos.c \
-			time.c
+			time.c \
+			death.c 
+
 
 CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) 
 #-g -fsanitize=thread
