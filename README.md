@@ -46,5 +46,6 @@ rm -rf ~/.cache/mesa_shader_cache/*
 rm -rf ~/.cache/*
 
 ex)
- ./philo 3 410 200 200
-
+./philo 4 800 200 200  # 基本的なテスト
+./philo 1 800 200 200  # 1人の哲学者のテスト
+./philo 4 800 200 200 5  # 食事回数制限付きのテスト

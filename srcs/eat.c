@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 19:15:01 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/11/17 21:16:05 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/18 21:20:46 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int eat(t_philo *philo)
 }
 
 // 食事回数チェック　　
-あとでちゃんと理解すること＠＠＠＠＠＠＠＠＠＠＠＠＠＠
+//理解すること＠＠＠＠＠＠＠＠＠＠＠＠＠＠
 static int all_philosophers_ate_enough(t_data *data)
 {
     int i;

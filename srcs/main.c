@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 16:52:47 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/10/28 20:51:49 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/18 21:49:58 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 テスト検証
 
 */
+
 // todo : 引数をパースする関数
 int	parse_arguments(int argc, char **argv, t_data *data)
 {
@@ -58,14 +59,25 @@ int	main(int argc, char **argv)
 	init_data(&data);
 	// 引数のパース、初期化
 	printf("test2\n");
-	//	todo : 哲学者のスレッドを作成、哲学者の動作を始める
-	//	失敗したらすべてのスレッドをミューテックスを開放しないといけない
+
+    printf("=== Starting test with parameters ===\n");
+    printf("Philosophers: %d\n", data.number_of_philosophers);
+    printf("Time to die: %lld ms\n", data.time_to_die);
+    printf("Time to eat: %lld ms\n", data.time_to_eat);
+    printf("Time to sleep: %lld ms\n", data.time_to_sleep);
+    if (argc == 6)
+        printf("Must eat count: %lld\n", data.num_must_eat);
+    printf("================================\n");
+
+		// todo : 哲学者のスレッドを作成、哲学者の動作を始める
+		// 失敗したらすべてのスレッドをミューテックスを開放しないといけない
 	if (start_philos(&data))
 	{
 		// release_data(&data);
-		print_error();
+		//print_error();
 	}
 	// todo : 哲学者が死んだ場合、食べることに失敗した場合
 	//death_data(&data);
 	return (0);
 }
+

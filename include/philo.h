@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 17:10:09 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/11/17 20:29:57 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/18 21:55:04 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int					ft_atoi(const char *str);
 
 // time
 long long			get_time(void);
+void	precise_sleep_time(long long duration_ms);
 
 // start_philo.c
 int					start_philos(t_data *data);
@@ -86,6 +87,10 @@ void				precise_sleep_time(long long duration_ms);
 int					eat(t_philo *philo);
 
 // death
-int	check_death(t_philo *philo);
+int					check_death(t_philo *philo);
+
+
+// monitor
+int	start_monitoring(t_data *data);
 
 #endif

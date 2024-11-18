@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:59:58 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/11/17 20:33:14 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/18 22:14:43 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,10 @@ static long long	calc_start_meal_time(t_philo *philo)
 		if (i % 2 == 0)
 		{
 			t = e;
-			// printf("tt1-0 %d, n:%d\n", t, i);
 		}
 		else
 		{
 			t = 0;
-			// printf("tt1-1 %d, n:%d\n", t, i);
 		}
 	}
 	else
@@ -64,6 +62,7 @@ static long long	calc_start_meal_time(t_philo *philo)
 			// rintf("tt2-1 %d, n:%d\n", t, i);
 		}
 	}
+	printf("calc_start_meal_time %lld\n",philo->data->start_time + t);
 	return (philo->data->start_time + t);
 }
 
@@ -71,20 +70,48 @@ static void	*action(void *arg)
 {
 	t_philo		*philo;
 	long long	first_meal_time;
-
+	 int          iteration = 0;  // デバッグ用のイテレーションカウンター
+printf("action test1\n");
 	philo = (t_philo *)arg;
 	// スタートする時間を調整を計算する
 	first_meal_time = calc_start_meal_time(philo);
 	precise_sleep_time(first_meal_time);
+	printf("action test1\n");
 	DEBUG_PRINT("***Philosopher %d first meal time %lld ", philo->id, first_meal_time);
 	// 指定された時刻までに正確に待機をする関数
 	// 繰り返す動作　死ぬまで繰り返す
 	while (1)
 	{
 		// 死亡確認
-		if (check_death(philo))
-			break ;
-			
+   // 各イテレーションの開始をログ
+        DEBUG_PRINT("***Philosopher %d: iteration %d at time %lld", 
+                    philo->id, iteration, get_time() - philo->data->start_time);
+
+        // 死亡確認
+        if (check_death(philo))
+        {
+            DEBUG_PRINT("***Philosopher %d died at iteration %d", philo->id, iteration);
+            break;
+        }
+		        // テスト用の処理 =============================================
+        pthread_mutex_lock(&philo->data->print_mutex);
+        printf("%lld %d is thinking\n", 
+               get_time() - philo->data->start_time, philo->id);
+        pthread_mutex_unlock(&philo->data->print_mutex);
+
+        // 意図的に食事をしない時間を作る（死亡判定のテスト用）
+        if (iteration == 2)  // 3回目のイテレーションで意図的に待機
+        {
+            DEBUG_PRINT("***Philosopher %d: intentionally waiting longer", philo->id);
+            usleep((philo->data->time_to_die + 100) * 1000);  // 死亡時間より少し長く待機
+        }
+        else
+        {
+            usleep(10000);  // 通常の待機時間
+        }
+
+        iteration++;
+		
 		// // 思考状態
 		// // take_think(philo);
 		// think_time = calc_think_time(philo);
@@ -140,9 +167,9 @@ int	start_philos(t_data *data)
 		DEBUG_PRINT("***Successfully created thread for philosopher %d", i);
 		i++;
 	}
-	// todo : 哲学者のモニタリング　死ぬか、シミュレートが終了するまでの間監視する
-	// if(start_monitoring(data))
-	// 	return 1;
+	//todo : 哲学者のモニタリング　死ぬか、シミュレートが終了するまでの間監視する
+	//if(start_monitoring(data))
+	//	return 1;
 		
 	i = 0;
 	while (i < data->number_of_philosophers)
