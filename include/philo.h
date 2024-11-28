@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 17:10:09 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/11/18 21:55:04 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/28 21:46:46 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ int					check_death(t_philo *philo);
 
 // monitor
 int	start_monitoring(t_data *data);
+void	*monitor_philos(void *arg);
 
 #endif

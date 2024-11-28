@@ -9,7 +9,8 @@ SRCFILES = main.c \
 			ft_utils.c \
 			start_philos.c \
 			time.c \
-			death.c 
+			death.c \
+			monitor.c
 
 
 CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) 

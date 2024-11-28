@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 16:52:47 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/11/18 21:49:58 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/27 21:45:56 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	main(int argc, char **argv)
 		print_error();
 	init_data(&data);
 	// 引数のパース、初期化
-	printf("test2\n");
 
     printf("=== Starting test with parameters ===\n");
     printf("Philosophers: %d\n", data.number_of_philosophers);

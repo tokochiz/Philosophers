@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:15:26 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/10/01 18:46:09 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/27 21:45:45 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	init_forks(t_data *data)
 {
 	int	i;
 
-	printf("init test3\n");
 	data->fork = (t_fork *)malloc(sizeof(t_fork)
 			* data->number_of_philosophers);
 	if (data->fork == NULL)
@@ -54,7 +53,6 @@ int	init_philos(t_data *data)
 {
 	int	i;
 
-	printf("init test2\n");
 	data->philo = (t_philo *)malloc(sizeof(t_philo)
 			* data->number_of_philosophers);
 	if (data->philo == NULL)
@@ -74,7 +72,7 @@ int	init_philos(t_data *data)
 
 void	init_data(t_data *data)
 {
-	printf("init test1\n");
+
 	data->error = 0; // エラーフラグを初期化
 	if (init_philos(data))
 	{
