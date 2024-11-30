@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 18:18:42 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/11/18 22:10:50 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/30 21:46:30 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ void precise_sleep_time(long long target_time)
         return;
         
     wait_time = target_time - current_time;
-	printf("test precise\n");
+
     usleep(wait_time * 1000);  // マイクロ秒に変換
 }

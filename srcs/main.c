@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 16:52:47 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/11/27 21:45:56 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/30 19:55:53 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@
 int	parse_arguments(int argc, char **argv, t_data *data)
 {
 	if (argc != 5 && argc != 6)
+	{
+		 fprintf(stderr, "Usage: %s number_of_philosophers time_to_die time_to_eat time_to_sleep [must_eat_times]\n", argv[0]);
 		return (1);
+	}
 	data->number_of_philosophers = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
@@ -40,13 +43,17 @@ int	parse_arguments(int argc, char **argv, t_data *data)
 	// printf("***argv debag %d %d %d %d\n", data->number_of_philosophers,
 	// 	data->time_to_die, data->time_to_eat, data->time_to_sleep);
 	if (argc == 6)
-		data->num_must_eat = atoi(argv[5]);
+		data->must_eat_times = ft_atoi(argv[5]);
 	else
-		data->num_must_eat = -1;
-	if (data->number_of_philosophers <= 0 || data->time_to_die <= 0
-		|| data->time_to_eat <= 0 || data->time_to_sleep <= 0 || (argc == 6
-			&& data->num_must_eat <= 0))
+		data->must_eat_times = -1;
+	if (data->number_of_philosophers <= 0 || 
+	data->time_to_die <= 0 || 
+	data->time_to_eat <= 0 || 
+	data->time_to_sleep <= 0 || 
+	(argc == 6 && data->must_eat_times <= 0)){
+	 fprintf(stderr, "Error: All parameters must be positive integers\n");
 		return (1);
+	}
 	return (0);
 }
 
@@ -65,7 +72,7 @@ int	main(int argc, char **argv)
     printf("Time to eat: %lld ms\n", data.time_to_eat);
     printf("Time to sleep: %lld ms\n", data.time_to_sleep);
     if (argc == 6)
-        printf("Must eat count: %lld\n", data.num_must_eat);
+        printf("Must eat count: %lld\n", data.must_eat_times);
     printf("================================\n");
 
 		// todo : 哲学者のスレッドを作成、哲学者の動作を始める

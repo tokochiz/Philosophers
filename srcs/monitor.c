@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 19:40:51 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/11/28 21:51:49 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/30 20:34:27 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	*monitor_philos(void *arg)
 			//  哲学者の死亡チェック
 			if (check_death(&data->philo[i]))
 				return (NULL);
-			// オプションの食事回数のチェック
-			// if (data->num_must_eat != -1 && all_philosophers_ate_enough(data))
+			// //オプションの食事回数のチェック
+			// if (data->must_eat_times != -1 && all_philosophers_ate_enough(data))
 			// {
 			// 	is_simulation_end(data);
 			// 	return (NULL);

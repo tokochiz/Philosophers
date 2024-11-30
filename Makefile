@@ -6,12 +6,12 @@ SRC_DIR = srcs
 SRCFILES = main.c \
 			error.c \
 			init.c \
-			ft_utils.c \
+			ft_atoi.c \
 			start_philos.c \
 			time.c \
 			death.c \
-			monitor.c
-
+			monitor.c \
+			fork.c
 
 CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) 
 #-g -fsanitize=thread

@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 17:10:09 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/11/28 21:46:46 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/30 21:42:34 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,16 @@ typedef struct s_philo
 	long long		last_meal_time;
 	pthread_t		thread;
 	pthread_mutex_t last_meal_mutex; //最後の食事時間保護用
+	int left_fork;
+	int right_fork;
 	struct s_data	*data;
 }					t_philo;
 
 typedef struct s_fork
 {
 	int				id;
-	pthread_mutex_t	mutex;
-}					t_fork;
+	pthread_mutex_t mutex;
+}t_fork;
 
 typedef struct s_data
 {
@@ -50,7 +52,7 @@ typedef struct s_data
 	long long		time_to_die;
 	long long		time_to_eat;
 	long long		time_to_sleep;
-	long long		num_must_eat;
+	long long		must_eat_times;
 	long long		start_time;
 	int someone_died;               // 誰かが死んだかどうか
 	pthread_mutex_t death_mutex;    //死んだかどうかの状態を更新するミューテックス
@@ -58,7 +60,7 @@ typedef struct s_data
 	pthread_mutex_t simu_end_mutex; // 終了フラグ保護用
 	int				simu_end;
 	t_philo *philo; //哲学者の配列
-	t_fork *fork;   //フォークの配列
+	t_fork *fork;
 	int				error;
 }					t_data;
 
@@ -77,11 +79,17 @@ int					ft_atoi(const char *str);
 
 // time
 long long			get_time(void);
-void	precise_sleep_time(long long duration_ms);
+void				precise_sleep_time(long long duration_ms);
 
 // start_philo.c
 int					start_philos(t_data *data);
 void				precise_sleep_time(long long duration_ms);
+
+// think
+// void think(t_philo *philo);
+
+// fork
+int	take_fork(t_philo *philo, t_data *data);
 
 // eat
 int					eat(t_philo *philo);
@@ -89,9 +97,8 @@ int					eat(t_philo *philo);
 // death
 int					check_death(t_philo *philo);
 
-
 // monitor
-int	start_monitoring(t_data *data);
-void	*monitor_philos(void *arg);
+int					start_monitoring(t_data *data);
+void				*monitor_philos(void *arg);
 
 #endif

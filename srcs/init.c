@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:15:26 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/11/27 21:45:45 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/11/30 20:07:27 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,26 @@ int	init_mutexes(t_data *data)
 {
 	int	i;
 
-	if (pthread_mutex_init(&data->death_mutex, NULL) != 0)
-		return (1);
 	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
+	{
+		pthread_mutex_destroy(&data->death_mutex);
 		return (1);
+	}
 	i = 0;
-	while (i < data->num_must_eat)
+	while (i < data->number_of_philosophers)
 	{
 		if (pthread_mutex_init(&data->fork[i].mutex, NULL) != 0)
+		{
+			// Clean up previously initialized mutexes
+			while (i > 0)
+			{
+				i--;
+				pthread_mutex_destroy(&data->fork[i].mutex);
+			}
+			pthread_mutex_destroy(&data->print_mutex);
+			pthread_mutex_destroy(&data->death_mutex);
 			return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -72,7 +83,6 @@ int	init_philos(t_data *data)
 
 void	init_data(t_data *data)
 {
-
 	data->error = 0; // エラーフラグを初期化
 	if (init_philos(data))
 	{
