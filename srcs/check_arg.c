@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/10 20:39:45 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/10 21:16:31 by ctokoyod         ###   ########.fr       */
+/*   Created: 2024/12/10 21:01:26 by ctokoyod          #+#    #+#             */
+/*   Updated: 2024/12/10 21:11:50 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// TODO : 全てのスレッドの終了を待機する関数作成　例外的に、哲学者が1人の場合は特別な処理
+// TODO : is_valid_input関数を書く
 
-int	main(int argc, char **argv)
+// TODO : intput check ... true or false
+bool check_arg(int argc, char **argv)
 {
-	t_table	data;
-
-	if (!check_arg(argc, argv))
-		return (printf("Error\n"));
-	if (!init_data(argc, argv, &data))
-		return (printf("Error\n"));
-	start_table(&data);
-	if (data.num_of_philos != 1)
-		join_threads(&data);
-	return (0);
+    int i;
+    i = 1;
+    if(argc != 5 && argc != 6)
+        return false;
+    while(i < argc)
+    {
+        if(!is_valid_input(argv[i]))
+            return false;
+        i++;
+    }
+    return true;
 }
