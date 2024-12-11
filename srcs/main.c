@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 20:39:45 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/10 21:16:31 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/11 20:03:59 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 
 int	main(int argc, char **argv)
 {
-	t_table	data;
+	t_table	table;
 
 	if (!check_arg(argc, argv))
 		return (printf("Error\n"));
-	if (!init_data(argc, argv, &data))
+	if (!init_data(argc, argv, &table))
 		return (printf("Error\n"));
-	start_table(&data);
-	if (data.num_of_philos != 1)
-		join_threads(&data);
+	start_table(&table);
+	if (table.num_of_philos != 1)
+		join_threads(&table);
 	return (0);
 }
