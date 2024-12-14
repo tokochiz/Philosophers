@@ -6,19 +6,42 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 21:00:41 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/11 21:10:54 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/14 13:04:12 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/philo.h"
 
-// TODO :　set_fork関数を作る　各哲学者に左右のフォークを割り当てる
 // TODO :　初期化中にエラーが失敗した場合の哲学者の個人ロックを破棄する
+bool	destory_mutex_philo_lock(t_table *table, int i)
+{
+	t_philo	*philo;
+
+	i = i - 1;
+	while (i > 0)
+	{
+		philo = &(table->philos[i]);
+		pthread_mutex_destroy(&philo->lock);
+		i--;
+	}
+	return (false);
+}
+
+// TODO :　set_fork関数を作る　各哲学者に左右のフォークを割り当てる
+void	set_fork(t_philo *philo, pthread_mutex_t *fork, int pos)
+{
+	int	philo_num;
+
+	philo_num = philo->table->num_of_philos;
+	philo->left_fork = &fork[pos];
+	philo->right_fork = &fork[(pos + 1) % philo_num];
+}
 
 bool	init_philo(t_table *table)
 {
-	t_philo *philo;
-	int i;
+	t_philo	*philo;
+	int		i;
+
 	i = 0;
 	while (i < table->num_of_philos)
 	{
