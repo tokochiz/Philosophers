@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/22 21:02:25 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/09/26 22:07:58 by ctokoyod         ###   ########.fr       */
+/*   Created: 2023/12/02 22:42:33 by  ctokoyod         #+#    #+#             */
+/*   Updated: 2024/12/14 13:08:47 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../../include/philo.h"
 
-int	ft_isdigit(int c)
+static int	_ft_isdigit(int c)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	return ((c >= '0' && c <= '9'));
 }
 
-int	ft_isspaces(int c)
+static const char	*_move_to_digit(const char *str, int *sign)
 {
-	if (c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t'
-		|| c == '\v')
-		return (1);
-	return (0);
-}
-
-static const char	*move_to_digit(const char *str, int *sign)
-{
-	*sign = 1;
-	while (ft_isspaces(*str))
+	while (ft_isspace(str))
 		str++;
 	if (*str == '-')
 		*sign = -1;
@@ -41,22 +30,20 @@ static const char	*move_to_digit(const char *str, int *sign)
 
 int	ft_atoi(const char *str)
 {
-	long	result;
 	int		sign;
+	long	result;
 
-	result = 0;
 	sign = 1;
-	str = move_to_digit(str, &sign);
-	while (*str != '\0')
+	result = 0;
+	str = _move_to_digit(str, &sign);
+	while (_ft_isdigit(*str))
 	{
-		if (result > (INT_MAX - (*str - '0')) / 10)
-		{
-			if (sign == 1)
-				return (INT_MAX);
-			return (INT_MIN);
-		}
+		if ((LONG_MAX - (*str - '0')) / 10 < (sign * result))
+			return ((int)LONG_MAX);
+		if ((LONG_MIN + (*str - '0')) / 10 > (sign * result))
+			return ((int)LONG_MIN);
 		result = result * 10 + (*str - '0');
 		str++;
 	}
-	return (int)(sign * result);
+	return (sign * result);
 }
