@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 20:39:16 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/14 13:41:22 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/16 21:38:19 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ bool	init_data(int argc, char **argv, t_table *table)
 	input_validation(argc, argv, table);
 	if (!validate_input_parameters(table))
 		return (false);
-	printf("debag**\n");
 	if (pthread_mutex_init(&table->table_lock, NULL) != 0)
 		return (false);
-	printf("debag**\n");
 	while (i < table->num_of_philos)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)

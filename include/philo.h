@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 17:10:09 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/14 20:59:03 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/16 21:27:58 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_table
 	int					num_of_must_eat;
 	int					num_of_finish;
 	bool				end_flag;
-	long			start_time;
+	long				start_time;
 	int someone_died;               // 誰かが死んだかどうか
 	pthread_mutex_t death_mutex;    //死んだかどうかの状態を更新するミューテックス
 	pthread_mutex_t print_mutex;    //出力を制御するミューテクス
@@ -61,36 +61,38 @@ typedef struct s_table
 	pthread_mutex_t		forks[201];
 	t_philo				philos[201];
 }						t_table;
+int	main(int argc, char **argv);
+// main
+void					join_all_threads(t_table *table);
 
-#endif
+// ***setup***
+// setup-> check_arg
+bool					check_arg(int argc, char **argv);
 
-// init
-// init -> input_validation
+// setup-> input_validation
 bool					validate_input_parameters(t_table *table);
 void					input_validation(int argc, char **argv, t_table *table);
 
-// init -> init_table
+// setup-> init_table
 bool					destory_mutex_table(t_table *table, int i);
 bool					init_data(int argc, char **argv, t_table *table);
 
-// init -> init_philos
+// setup-> init_philos
 bool					destory_mutex_philo_lock(t_table *table, int i);
 void					set_fork(t_philo *philo, pthread_mutex_t *fork,
 							int pos);
 bool					init_philo(t_table *table);
 
-// init -> check_arg
-bool					check_arg(int argc, char **argv);
+// start_table
+void					start_table(t_table *table);
 
-// utils
-int						ft_atoi(const char *str);
-bool					ft_isspace(const char *str);
+// start_philo
+void					adjust_routine_timing(t_philo *philo);
+void					*start_philos(void *philo_p);
+void					start_one_philo(t_table *table);
+// ***setup end***
 
-long				get_current_time_ms(void);
-void					sleep_for_ms(int time);
-void					sleeping_philo(t_philo *philo);
-
-// context
+// ***context***
 // fork
 int						take_fork(t_philo *philo);
 void					release_fork(t_philo *philo);
@@ -107,14 +109,16 @@ void					print_dead(t_philo *philo);
 void					eating(t_philo *philo);
 void					sleeping(t_philo *philo);
 
-// start_philo
-void					adjust_routine_timing(t_philo *philo);
-void					*start_philos(void *philo_p);
-void					start_one_philo(t_table *table);
+// monitor
+void	*monitor_all_philos(void *arg);
+// ***context end***
 
-// start_table
-void					start_table(t_table *table);
+// utils
+int						ft_atoi(const char *str);
+bool					ft_isspace(const char *str);
+long					get_current_time_ms(void);
+void					get_sleep_time_ms(int time);
+
 void					end_table(t_table *table);
 
-// main
-void					join_all_threads(t_table *table);
+#endif

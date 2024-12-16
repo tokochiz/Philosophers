@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 20:51:57 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/14 18:33:54 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/16 21:26:42 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,4 @@ void	input_validation(int argc, char **argv, t_table *table)
 		table->num_of_must_eat = ft_atoi(argv[5]);
 	else
 		table->num_of_must_eat = -1;
-	printf("***argv debag %d %lld %lld %lld %d\n", table->num_of_philos,
-		table->time_to_die, table->time_to_eat, table->time_to_sleep, table->num_of_must_eat);
 }

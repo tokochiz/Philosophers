@@ -23,7 +23,8 @@ CONTEXT_FILE = start_philo.c \
 			   fork.c \
 			   eating.c \
 			   sleeping.c \
-			   print_stats.c		   
+			   print_stats.c \
+			   monitor.c		   
 
 CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) 
 #-g -fsanitize=thread
