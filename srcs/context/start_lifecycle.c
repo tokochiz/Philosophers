@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:24:51 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/14 20:52:11 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/21 15:14:30 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	can_philo_continue(t_philo *philo)
 	pthread_mutex_lock(&philo->table->table_lock);
 	if (philo->table->end_flag == true)
 	{
-		pthread_mutex_lock(&philo->table->table_lock);
+		pthread_mutex_unlock(&philo->table->table_lock);
 		return (false);
 	}
 	pthread_mutex_unlock(&philo->table->table_lock);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_validation.c                                 :+:      :+:    :+:   */
+/*   convert_input_to_table.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/11 20:51:57 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/14 18:33:54 by ctokoyod         ###   ########.fr       */
+/*   Created: 2024/12/21 16:08:26 by ctokoyod          #+#    #+#             */
+/*   Updated: 2024/12/21 16:08:29 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	validate_input_parameters(t_table *table)
 	return (true);
 }
 
-void	input_validation(int argc, char **argv, t_table *table)
+void	convert_input_to_table(int argc, char **argv, t_table *table)
 {
 	table->num_of_philos = ft_atoi(argv[1]);
 	table->time_to_die = ft_atoi(argv[2]);
@@ -37,6 +37,4 @@ void	input_validation(int argc, char **argv, t_table *table)
 		table->num_of_must_eat = ft_atoi(argv[5]);
 	else
 		table->num_of_must_eat = -1;
-	printf("***argv debag %d %lld %lld %lld %d\n", table->num_of_philos,
-		table->time_to_die, table->time_to_eat, table->time_to_sleep, table->num_of_must_eat);
 }
