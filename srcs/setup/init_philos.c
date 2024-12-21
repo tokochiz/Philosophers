@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 21:00:41 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/14 13:04:12 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/21 14:55:17 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ bool	destory_mutex_philo_lock(t_table *table, int i)
 	return (false);
 }
 
-// TODO :　set_fork関数を作る　各哲学者に左右のフォークを割り当てる
 void	set_fork(t_philo *philo, pthread_mutex_t *fork, int pos)
 {
 	int	philo_num;

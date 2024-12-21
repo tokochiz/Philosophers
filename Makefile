@@ -9,7 +9,7 @@ SETUP_DIR = ./$(SRC_DIR)/setup
 SETUP_FILES = init_table.c \
 			init_philos.c \
 			check_arg.c \
-			input_validation.c \
+			convert_input_to_table.c \
 			table.c 
 
 UTILS_DIR = ./$(SRC_DIR)/utils
@@ -19,12 +19,12 @@ UTILS_FILE = ft_atoi.c \
 
 CONTEXT_DIR = ./$(SRC_DIR)/context
 CONTEXT_FILE = start_philo.c \
-			   start_lifecycle.c \
-			   fork.c \
-			   eating.c \
-			   sleeping.c \
-			   print_stats.c \
-			   monitor.c		   
+			start_lifecycle.c \
+			fork.c \
+			eating.c \
+			sleeping.c \
+			print_stats.c \
+			monitor.c		   
 
 CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) 
 #-g -fsanitize=thread

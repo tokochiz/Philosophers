@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 17:10:09 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/16 21:27:58 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:06:51 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <sys/time.h> // `gettimeofday`
+# include <sys/time.h>
 # include <unistd.h>
 
 typedef struct s_table	t_table;
@@ -52,26 +52,26 @@ typedef struct s_table
 	int					num_of_finish;
 	bool				end_flag;
 	long				start_time;
-	int someone_died;               // 誰かが死んだかどうか
-	pthread_mutex_t death_mutex;    //死んだかどうかの状態を更新するミューテックス
-	pthread_mutex_t print_mutex;    //出力を制御するミューテクス
-	pthread_mutex_t simu_end_mutex; // 終了フラグ保護用
+	int					someone_died;
+	pthread_mutex_t		death_mutex;
+	pthread_mutex_t		print_mutex;
+	pthread_mutex_t		simu_end_mutex;
 	pthread_t			monitor;
 	pthread_mutex_t		table_lock;
 	pthread_mutex_t		forks[201];
 	t_philo				philos[201];
 }						t_table;
-int	main(int argc, char **argv);
-// main
+
+int						main(int argc, char **argv);
 void					join_all_threads(t_table *table);
 
-// ***setup***
 // setup-> check_arg
 bool					check_arg(int argc, char **argv);
 
 // setup-> input_validation
 bool					validate_input_parameters(t_table *table);
-void					input_validation(int argc, char **argv, t_table *table);
+void					convert_input_to_table(int argc, char **argv,
+							t_table *table);
 
 // setup-> init_table
 bool					destory_mutex_table(t_table *table, int i);
@@ -83,42 +83,33 @@ void					set_fork(t_philo *philo, pthread_mutex_t *fork,
 							int pos);
 bool					init_philo(t_table *table);
 
-// start_table
+// table
 void					start_table(t_table *table);
+void					end_table(t_table *table);
 
 // start_philo
 void					adjust_routine_timing(t_philo *philo);
 void					*start_philos(void *philo_p);
 void					start_one_philo(t_table *table);
-// ***setup end***
 
-// ***context***
 // fork
 int						take_fork(t_philo *philo);
 void					release_fork(t_philo *philo);
-
 bool					can_philo_continue(t_philo *philo);
 void					start_lifecycle(t_philo *philo);
-
 void					print_fork(t_philo *philo);
 void					print_eating(t_philo *philo);
 void					print_sleeping(t_philo *philo);
 void					print_thinking(t_philo *philo);
 void					print_dead(t_philo *philo);
-
 void					eating(t_philo *philo);
 void					sleeping(t_philo *philo);
-
-// monitor
-void	*monitor_all_philos(void *arg);
-// ***context end***
+void					*monitor_all_philos(void *arg);
 
 // utils
 int						ft_atoi(const char *str);
 bool					ft_isspace(const char *str);
 long					get_current_time_ms(void);
 void					get_sleep_time_ms(int time);
-
-void					end_table(t_table *table);
 
 #endif

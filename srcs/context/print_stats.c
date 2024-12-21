@@ -6,21 +6,11 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:45:04 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/16 21:26:55 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/21 14:53:42 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/philo.h"
-
-/*
-• 哲学者の状態の変化は、以下のフォーマットで表示する:
-◦ `timestamp_in_ms X has taken a fork`
-◦ `timestamp_in_ms X is eating`
-◦ `timestamp_in_ms X is sleeping`
-◦ `timestamp_in_ms X is thinking`
-◦ `timestamp_in_ms X died`
-`timestamp_in_ms` には現在のタイムスタンプ（ミリ秒）を、X には哲学者の番号を置き換える。
-*/
 
 void	print_fork(t_philo *philo)
 {

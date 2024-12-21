@@ -6,36 +6,28 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 21:00:52 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/16 21:36:28 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/21 14:54:22 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/philo.h"
 
-// TODO : 哲学者死んだ、
-
-// TODO : モニターのメイン関数
-// TODO : `time_to_die`  死ぬまでの時間 (ms)を超えたか
-// TODO : `[optional: num_of_must_eat]` プログラムを終了する食事回数を超えたか
-// すべての哲学者が終了条件を満たしていたら、プログラムを終了する　これを繰り返し行う
-
-// 死亡したときの処理
 static void	_handle_philo_death(t_philo *philo)
 {
-	pthread_mutex_unlock(&philo->lock);            // 哲学者のロックを解放
-	pthread_mutex_lock(&philo->table->table_lock); //テーブルのロックを取得
+	print_dead(philo);
+	pthread_mutex_lock(&philo->table->table_lock);
 	philo->table->end_flag = 1;
 	pthread_mutex_unlock(&philo->table->table_lock);
+	pthread_mutex_unlock(&philo->lock);
+	return ;
 }
 
-// philoの健康状態をチェック
 static bool	_check_philo_health(t_philo *philo)
 {
 	long	current_time;
 
 	current_time = get_current_time_ms();
 	pthread_mutex_lock(&philo->lock);
-	// 少なくとも1度は食事したか、食事から生存限界を超えているか、食事中ではないか
 	if (philo->last_meal_time != -1 && current_time
 		- philo->last_meal_time >= philo->time_to_die && philo->is_eating == 0)
 	{
@@ -88,19 +80,20 @@ void	*monitor_all_philos(void *arg)
 
 	table = (t_table *)arg;
 	i = 0;
-	get_sleep_time_ms(10);
 	while (1)
 	{
-		philo = &table->philos[i];
-		if (_can_stop_monitoring(philo))
+		pthread_mutex_lock(&table->table_lock);
+		if (table->end_flag)
 		{
+			pthread_mutex_unlock(&table->table_lock);
 			return (NULL);
 		}
-		i++;
-		if (i == table->num_of_philos)
-		{
-			i = 0;
-		}
+		pthread_mutex_unlock(&table->table_lock);
+		philo = &table->philos[i];
+		if (_can_stop_monitoring(philo))
+			return (NULL);
+		i = (i + 1) % table->num_of_philos;
+		get_sleep_time_ms(1);
 	}
 	return (NULL);
 }

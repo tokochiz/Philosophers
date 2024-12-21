@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 15:11:32 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/16 20:48:49 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/21 14:54:53 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	adjust_routine_timing(t_philo *philo)
 			get_sleep_time_ms((((2 * philo_num - philo_id) * time_to_eat))
 				/ (philo_num - 1));
 		else
-			get_sleep_time_ms(((philo_num - philo_id) * time_to_eat) / (philo_num
-					- 1));
+			get_sleep_time_ms(((philo_num - philo_id) * time_to_eat)
+				/ (philo_num - 1));
 	}
 	return ;
 }
