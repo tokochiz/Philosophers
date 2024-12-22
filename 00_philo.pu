@@ -1,0 +1,84 @@
+@startuml
+skinparam {
+    DefaultFontName MS Gothic
+    ActivityBackgroundColor LightBlue
+    ActivityBorderColor Black
+    ActivityDiamondBackgroundColor LightYellow
+}
+
+title 哲学者の問題 - プログラム実行フロー
+
+|Main|
+start
+:main(argc, argv);
+note right: プログラムのエントリーポイント
+
+|#AntiqueWhite|Setup|
+partition "引数チェックと検証" {
+    :check_arg(argc, argv);
+    :input_validation(argc, argv, table);
+    :validate_input_parameters(table);
+}
+
+partition "テーブル初期化" {
+    :init_data(argc, argv, table);
+    note right: テーブルの基本データを初期化
+    if (ミューテックス初期化失敗?) then (yes)
+        :destroy_mutex_table(table, i);
+    endif
+}
+
+partition "哲学者初期化" {
+    :init_philo(table);
+    note right: 各哲学者の状態を初期化
+    :set_fork(philo, fork, pos);
+    note right: フォークの割り当て
+    if (ミューテックス初期化失敗?) then (yes)
+        :destroy_mutex_philo_lock(table, i);
+    endif
+}
+
+:start_table(table);
+note right: テーブルの開始処理
+
+|#LightGreen|Context|
+partition "フォーク管理" {
+    if (哲学者1人?) then (yes)
+        :start_one_philo(table);
+    else (no)
+        :start_philos(philo_p);
+        :adjust_routine_timing(philo);
+        :take_fork(philo);
+        :can_philo_continue(philo);
+        :start_lifecycle(philo);
+    endif
+}
+
+partition "状態管理" {
+    :print_fork(philo);
+    :print_eating(philo);
+    :print_sleeping(philo);
+    :print_thinking(philo);
+    if (死亡?) then (yes)
+        :print_dead(philo);
+    endif
+}
+
+partition "モニタリング" {
+    :monitor_all_philos(arg);
+    note right: 全哲学者の状態を監視
+}
+
+|Main|
+:join_all_threads(table);
+:end_table(table);
+stop
+
+legend right
+    |色|意味|
+    |#AntiqueWhite|Setup処理|
+    |#LightGreen|Context処理|
+    |= |Main処理|
+endlegend
+
+@enduml
