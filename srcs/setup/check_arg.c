@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 21:01:26 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/21 15:59:55 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/22 13:50:26 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	_is_valid_number_string(const char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!(str[i] <= '0' && str[i] >= '9'))
+		if (!(str[i] >= '0' && str[i] <= '9'))
 			return (false);
 		i++;
 	}
