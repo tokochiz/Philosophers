@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 21:00:52 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/21 14:54:22 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/22 16:22:53 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static bool	_check_philo_must_eat(t_philo *philo)
 		pthread_mutex_unlock(&philo->lock);
 		pthread_mutex_lock(&philo->table->table_lock);
 		philo->table->num_of_finish++;
-		if (philo->table->num_of_finish >= philo->table->num_of_philos)
+		if (philo->table->num_of_finish >= philo->table->num_of_must_eat)
 		{
 			philo->table->end_flag = 1;
 			pthread_mutex_unlock(&philo->table->table_lock);
