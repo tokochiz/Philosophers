@@ -6,68 +6,51 @@ skinparam {
     ActivityDiamondBackgroundColor LightYellow
 }
 
-title 哲学者の問題 - プログラム実行フロー
+title 哲学者の問題 - プログラム実行フロー（並行処理）
 
 |Main|
 start
 :main(argc, argv);
-note right: プログラムのエントリーポイント
 
 |#AntiqueWhite|Setup|
-partition "引数チェックと検証" {
-    :check_arg(argc, argv);
-    :input_validation(argc, argv, table);
-    :validate_input_parameters(table);
-}
-
-partition "テーブル初期化" {
-    :init_data(argc, argv, table);
-    note right: テーブルの基本データを初期化
-    if (ミューテックス初期化失敗?) then (yes)
-        :destroy_mutex_table(table, i);
-    endif
-}
-
-partition "哲学者初期化" {
-    :init_philo(table);
-    note right: 各哲学者の状態を初期化
-    :set_fork(philo, fork, pos);
-    note right: フォークの割り当て
-    if (ミューテックス初期化失敗?) then (yes)
-        :destroy_mutex_philo_lock(table, i);
-    endif
-}
+:引数検証と初期化処理;
 
 :start_table(table);
-note right: テーブルの開始処理
+note right
+  start_timeを設定
+  start_time = 現在時刻 + 500μs
+end note
 
-|#LightGreen|Context|
-partition "フォーク管理" {
-    if (哲学者1人?) then (yes)
-        :start_one_philo(table);
-    else (no)
-        :start_philos(philo_p);
-        :adjust_routine_timing(philo);
-        :take_fork(philo);
-        :can_philo_continue(philo);
-        :start_lifecycle(philo);
-    endif
-}
-
-partition "状態管理" {
-    :print_fork(philo);
-    :print_eating(philo);
-    :print_sleeping(philo);
-    :print_thinking(philo);
-    if (死亡?) then (yes)
-        :print_dead(philo);
-    endif
-}
-
-partition "モニタリング" {
-    :monitor_all_philos(arg);
-    note right: 全哲学者の状態を監視
-}
+if (哲学者1人?) then (yes)
+    :start_one_philo(table);
+else (no)
+    fork
+        |#LightGreen|Philosopher Threads|
+        :各哲学者のスレッド作成;
+        partition "哲学者の状態遷移" {
+            while (プログラム実行中)
+                :フォーク取得待機;
+                :食事;
+                :睡眠;
+                :思考;
+            endwhile
+        }
+        
+    fork again
+        |#Pink|Monitor Thread|
+        partition "状態監視" {
+            :monitor_all_philos開始;
+            while (プログラム実行中)
+                :各哲学者の状態チェック;
+                if (死亡検知?) then (yes)
+                    :死亡状態を記録;
+                    :プログラム終了フラグ設定;
+                endif
+                :10μs待機;
+            endwhile
+        }
+    end fork
+endif
 
 |Main|
 :join_all_threads(table);
@@ -77,7 +60,8 @@ stop
 legend right
     |色|意味|
     |#AntiqueWhite|Setup処理|
-    |#LightGreen|Context処理|
+    |#LightGreen|哲学者スレッド|
+    |#Pink|モニタースレッド|
     |= |Main処理|
 endlegend
 
