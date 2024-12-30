@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 17:10:09 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/22 13:39:20 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:15:07 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,6 @@ void					*monitor_all_philos(void *arg);
 int						ft_atoi(const char *str);
 bool					ft_isspace(const char *str);
 long					get_current_time_ms(void);
-void					get_sleep_time_ms(int time);
+void					sleep_for_ms(int time);
 
 #endif

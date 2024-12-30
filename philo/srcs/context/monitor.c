@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 21:00:52 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/25 18:19:29 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:15:07 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	*monitor_all_philos(void *arg)
 		if (_can_stop_monitoring(philo))
 			return (NULL);
 		i = (i + 1) % table->num_of_philos;
-		get_sleep_time_ms(1);
+		sleep_for_ms(1);
 	}
 	return (NULL);
 }

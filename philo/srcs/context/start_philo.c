@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 15:11:32 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/21 14:54:53 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:15:07 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ void	adjust_routine_timing(t_philo *philo)
 	if (philo_num % 2 == 0)
 	{
 		if (philo_id % 2 == 0)
-			get_sleep_time_ms(time_to_eat);
+			sleep_for_ms(time_to_eat);
 	}
 	else
 	{
 		if (philo_id % 2 == 0)
-			get_sleep_time_ms((((2 * philo_num - philo_id) * time_to_eat))
+			sleep_for_ms((((2 * philo_num - philo_id) * time_to_eat))
 				/ (philo_num - 1));
 		else
-			get_sleep_time_ms(((philo_num - philo_id) * time_to_eat)
+			sleep_for_ms(((philo_num - philo_id) * time_to_eat)
 				/ (philo_num - 1));
 	}
 	return ;
@@ -50,9 +50,9 @@ void	*start_philos(void *philo_p)
 		usleep(10);
 		time = get_current_time_ms();
 	}
-	pthread_mutex_lock(&philo->lock);
+	//pthread_mutex_lock(&philo->lock);
 	philo->last_meal_time = get_current_time_ms();
-	pthread_mutex_unlock(&philo->lock);
+	//pthread_mutex_unlock(&philo->lock);
 	adjust_routine_timing(philo);
 	start_lifecycle(philo);
 	return (NULL);
@@ -61,7 +61,7 @@ void	*start_philos(void *philo_p)
 void	start_one_philo(t_table *table)
 {
 	print_fork(&(table->philos[0]));
-	get_sleep_time_ms(table->time_to_die);
+	sleep_for_ms(table->time_to_die);
 	print_dead(&(table->philos[0]));
 	return ;
 }
