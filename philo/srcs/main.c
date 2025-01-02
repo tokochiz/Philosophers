@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 20:39:45 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/22 13:56:19 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2025/01/02 17:18:18 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,18 @@ void	join_all_threads(t_table *table)
 int	main(int argc, char **argv)
 {
 	t_table	table;
+	bool	start_success;
 
 	if (!check_arg(argc, argv))
-		return (printf("Error\n"));
+		return (printf("Error: Invalid arguments\n"));
 	if (!init_data(argc, argv, &table))
-		return (printf("Error\n"));
-	start_table(&table);
+		return (printf("Error: Failed to initialize data\n"));
+	start_success = start_table(&table);
 	if (table.num_of_philos != 1)
 		join_all_threads(&table);
-	end_table(&table);
+	if (end_table(&table) != 0)
+		return (printf("Error: Failed to clean up resources\n"));
+	if (start_table(&table) != 0)
+		return (printf("Error: Failed to start table\n"));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 17:10:09 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/30 16:15:07 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2025/01/02 15:38:51 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,13 @@ bool					init_data(int argc, char **argv, t_table *table);
 bool					destory_mutex_philo_lock(t_table *table, int i);
 void					set_fork(t_philo *philo, pthread_mutex_t *fork,
 							int pos);
+int						init_philo_threads(t_table *table);
 bool					init_philo(t_table *table);
 
 // table
-void					start_table(t_table *table);
-void					end_table(t_table *table);
+int						cleanup_threads(t_table *table, int philo_count);
+int						start_table(t_table *table);
+int						end_table(t_table *table);
 
 // start_philo
 void					adjust_routine_timing(t_philo *philo);
@@ -94,7 +96,8 @@ void					start_one_philo(t_table *table);
 
 // fork
 int						take_fork(t_philo *philo);
-void					release_fork(t_philo *philo);
+int						release_fork(t_philo *philo);
+
 bool					can_philo_continue(t_philo *philo);
 void					start_lifecycle(t_philo *philo);
 void					print_fork(t_philo *philo);
