@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 21:00:41 by ctokoyod          #+#    #+#             */
-/*   Updated: 2025/01/02 15:38:39 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2025/01/02 16:42:04 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,18 @@ int	init_philo_threads(t_table *table)
 {
 	int		i;
 	long	time;
+	int		ret;
 
 	i = 0;
 	while (i < table->num_of_philos)
 	{
-		if (pthread_create(&table->philos[i].thread_id, NULL, &start_philos,
-				(void *)&table->philos[i]) != 0)
+		ret = pthread_create(&table->philos[i].thread_id, NULL, &start_philos,
+				(void *)&table->philos[i]);
+		if (ret != 0)
+		{
+			table->end_flag = true;
 			return (cleanup_threads(table, i));
+		}
 		i++;
 	}
 	time = get_current_time_ms();
