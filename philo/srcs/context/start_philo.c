@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 15:11:32 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/30 16:15:07 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2025/01/02 15:16:28 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	*start_philos(void *philo_p)
 		usleep(10);
 		time = get_current_time_ms();
 	}
-	//pthread_mutex_lock(&philo->lock);
+	pthread_mutex_lock(&philo->lock);
 	philo->last_meal_time = get_current_time_ms();
-	//pthread_mutex_unlock(&philo->lock);
+	pthread_mutex_unlock(&philo->lock);
 	adjust_routine_timing(philo);
 	start_lifecycle(philo);
 	return (NULL);
