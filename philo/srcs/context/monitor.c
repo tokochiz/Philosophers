@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 21:00:52 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/25 18:19:29 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2025/01/02 17:12:45 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	_handle_philo_death(t_philo *philo)
 {
 	print_dead(philo);
 	pthread_mutex_lock(&philo->table->table_lock);
-	philo->table->end_flag = 1;
+	philo->table->end_flag = true;
 	pthread_mutex_unlock(&philo->table->table_lock);
 	pthread_mutex_unlock(&philo->lock);
 	return ;
@@ -34,7 +34,8 @@ static bool	_check_philo_health(t_philo *philo)
 		_handle_philo_death(philo);
 		return (true);
 	}
-	pthread_mutex_unlock(&philo->lock);
+	else
+		pthread_mutex_unlock(&philo->lock);
 	return (false);
 }
 
@@ -50,7 +51,7 @@ static bool	_check_philo_must_eat(t_philo *philo)
 		philo->table->num_of_finish++;
 		if (philo->table->num_of_finish >= philo->table->num_of_philos)
 		{
-			philo->table->end_flag = 1;
+			philo->table->end_flag = true;
 			pthread_mutex_unlock(&philo->table->table_lock);
 			return (true);
 		}
@@ -93,7 +94,7 @@ void	*monitor_all_philos(void *arg)
 		if (_can_stop_monitoring(philo))
 			return (NULL);
 		i = (i + 1) % table->num_of_philos;
-		get_sleep_time_ms(1);
+		sleep_for_ms(1);
 	}
 	return (NULL);
 }

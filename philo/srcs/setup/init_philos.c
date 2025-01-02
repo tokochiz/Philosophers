@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 21:00:41 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/21 14:55:17 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2025/01/02 16:42:04 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,33 @@ void	set_fork(t_philo *philo, pthread_mutex_t *fork, int pos)
 	philo_num = philo->table->num_of_philos;
 	philo->left_fork = &fork[pos];
 	philo->right_fork = &fork[(pos + 1) % philo_num];
+}
+
+int	init_philo_threads(t_table *table)
+{
+	int		i;
+	long	time;
+	int		ret;
+
+	i = 0;
+	while (i < table->num_of_philos)
+	{
+		ret = pthread_create(&table->philos[i].thread_id, NULL, &start_philos,
+				(void *)&table->philos[i]);
+		if (ret != 0)
+		{
+			table->end_flag = true;
+			return (cleanup_threads(table, i));
+		}
+		i++;
+	}
+	time = get_current_time_ms();
+	while (table->start_time > time)
+	{
+		usleep(10);
+		time = get_current_time_ms();
+	}
+	return (0);
 }
 
 bool	init_philo(t_table *table)

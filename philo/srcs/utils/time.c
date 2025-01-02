@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:51:35 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/21 14:56:21 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:15:17 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ long	get_current_time_ms(void)
 	return ((long long)(time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void	get_sleep_time_ms(int time)
+void	sleep_for_ms(int time)
 {
 	long int	start_time;
 

@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:24:51 by ctokoyod          #+#    #+#             */
-/*   Updated: 2024/12/21 15:14:30 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2025/01/02 17:07:24 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ void	start_lifecycle(t_philo *philo)
 	{
 		if (can_philo_continue(philo) == false)
 			return ;
-		take_fork(philo);
+		if (take_fork(philo) != 0)
+			return ;
 		if (can_philo_continue(philo) == false)
 		{
-			release_fork(philo);
+			if (release_fork(philo) != 0)
+				return ;
 			return ;
 		}
 		eating(philo);
