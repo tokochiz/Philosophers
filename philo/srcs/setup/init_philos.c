@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 21:00:41 by ctokoyod          #+#    #+#             */
-/*   Updated: 2025/01/02 16:42:04 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:19:18 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ bool	init_philo(t_table *table)
 	int		i;
 
 	i = 0;
+	philo = NULL;
 	while (i < table->num_of_philos)
 	{
 		philo = &(table->philos[i]);
@@ -76,6 +77,7 @@ bool	init_philo(t_table *table)
 		philo->is_dead = false;
 		philo->is_full = false;
 		philo->is_eating = 0;
+		philo->eat_count = 0;
 		philo->last_meal_time = -1;
 		philo->time_to_die = table->time_to_die;
 		philo->time_to_eat = table->time_to_eat;
