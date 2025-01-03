@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 17:10:09 by ctokoyod          #+#    #+#             */
-/*   Updated: 2025/01/02 15:38:51 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:32:01 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_philo
 	bool				is_dead;
 	bool				is_full;
 	int					is_eating;
-	long long			eat_count;
+	int					eat_count;
 	long long			time_to_die;
 	long long			time_to_eat;
 	long long			time_to_sleep;
@@ -53,10 +53,10 @@ typedef struct s_table
 	bool				end_flag;
 	long				start_time;
 	int					someone_died;
+	pthread_t			monitor;
 	pthread_mutex_t		death_mutex;
 	pthread_mutex_t		print_mutex;
 	pthread_mutex_t		simu_end_mutex;
-	pthread_t			monitor;
 	pthread_mutex_t		table_lock;
 	pthread_mutex_t		forks[201];
 	t_philo				philos[201];
@@ -86,6 +86,7 @@ bool					init_philo(t_table *table);
 
 // table
 int						cleanup_threads(t_table *table, int philo_count);
+int						create_monitor_thread(t_table *table);
 int						start_table(t_table *table);
 int						end_table(t_table *table);
 
@@ -107,6 +108,12 @@ void					print_thinking(t_philo *philo);
 void					print_dead(t_philo *philo);
 void					eating(t_philo *philo);
 void					sleeping(t_philo *philo);
+
+// monitor
+void					handle_philo_death(t_philo *philo);
+bool					check_philo_health(t_philo *philo);
+bool					check_philo_must_eat(t_philo *philo);
+bool					can_stop_monitoring(t_philo *philo);
 void					*monitor_all_philos(void *arg);
 
 // utils
