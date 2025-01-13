@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 21:00:41 by ctokoyod          #+#    #+#             */
-/*   Updated: 2025/01/03 16:19:18 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:35:50 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	set_fork(t_philo *philo, pthread_mutex_t *fork, int pos)
 int	init_philo_threads(t_table *table)
 {
 	int		i;
-	long	time;
 	int		ret;
 
 	i = 0;
@@ -53,12 +52,6 @@ int	init_philo_threads(t_table *table)
 			return (cleanup_threads(table, i));
 		}
 		i++;
-	}
-	time = get_current_time_ms();
-	while (table->start_time > time)
-	{
-		usleep(10);
-		time = get_current_time_ms();
 	}
 	return (0);
 }

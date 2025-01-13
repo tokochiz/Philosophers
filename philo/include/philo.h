@@ -6,7 +6,7 @@
 /*   By: ctokoyod <ctokoyod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 17:10:09 by ctokoyod          #+#    #+#             */
-/*   Updated: 2025/01/03 16:32:01 by ctokoyod         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:10:08 by ctokoyod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ typedef struct s_table
 	pthread_mutex_t		print_mutex;
 	pthread_mutex_t		simu_end_mutex;
 	pthread_mutex_t		table_lock;
-	pthread_mutex_t		forks[201];
-	t_philo				philos[201];
+	pthread_mutex_t		forks[200];
+	t_philo				philos[200];
 }						t_table;
 
 int						main(int argc, char **argv);
